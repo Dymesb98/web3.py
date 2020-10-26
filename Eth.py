@@ -4,7 +4,7 @@ from web3.middleware import geth_poa_middleware
 
 
 #Switch to Rinkeby if you wnat to live (on Infura)
-w3 = Web3(Web3.HTTPProvider("https://API Endpoint by Infura"))
+w3 = Web3(Web3.HTTPProvider("https://mainnet.infura.io/v3/1c8e1333853b419f879ae4d9fc58cc61"))
 w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 print(w3.isConnected())
 #prints True if connected to blockchain newtwork
@@ -22,7 +22,7 @@ address = '0xc3dbf84Abb494ce5199D5d4D815b10EC29529ff8'
 dai = w3.eth.contract(address=address, abi=abi)
 print(dai.functions.totalSupply().call())
 
-transaction = dai.functions.transfer('Receviers account address', 0x10).buildTransaction({'chainId': 4, 'gas':70000, 'nonce': w3.eth.getTransactionCount('my_account._address')})
+transaction = dai.functions.transfer('0xBe61c97c1027862803B9f1B6F3E607CA5122EbA4', 0x10).buildTransaction({'chainId': 4, 'gas':70000, 'nonce': w3.eth.getTransactionCount('my_account._address')})
 signed_txn = w3.eth.account.signTransaction(transaction, 'my_account._private_key')
 txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
 print(txn_hash)
